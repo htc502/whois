@@ -1,14 +1,14 @@
 # .out .err files
-.out
-.err
+*.out
+*.err
 
 # History files
-.Rhistory
-.Rapp.history
+*.Rhistory
+*.Rapp.history
 
 # Session Data files
-.RData
-.rda
+*.RData
+*.rda
 
 # Example code in package build process
 *-Ex.R

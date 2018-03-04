@@ -1,4 +1,8 @@
-library(rentrez)
+################library(rentrez)
+##aim: give a topic, output a table of articles relate with this topic, table form
+##  pmid/pmcid, title abstract, journal, year, author list
+
+ewrefxn::require0('rentrez')
 keyword <- '"epithelial mesenchymal transition"[title/abstract]'
 db <- 'pubmed'
 web_env_search <- entrez_search(db=db, term = keyword, use_history=TRUE)
@@ -31,3 +35,4 @@ for(i in 1:nround ) {
 }
 save(res, file='EMT_paper_pubmed_07062017.rda')
 ##we got the results we want, but with one problem: there is no keyword information available in ncbi pubmed results....
+##use abstract instead.

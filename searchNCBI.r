@@ -1,4 +1,4 @@
-searchNCBI = function(keyword, db = 'pubmed',out = 'searchNCBI.tsv') {
+searchNCBI = function(keyword, db = 'pubmed',out = NULL) {
   library(ewrefxn)
   require0('rentrez')
   web_env_search <- entrez_search(db=db, term = keyword, use_history=TRUE)
@@ -33,14 +33,16 @@ searchNCBI = function(keyword, db = 'pubmed',out = 'searchNCBI.tsv') {
 
   outputTbl = tbl_df(data.frame(
     title = titles1,
-    authors = authors1,
-    keywords = keywords1,
     abstr = abstr1,
     year = year1,
+    keywords = keywords1,
     journal = journal1,
+    authors = authors1,
     pmid = pmid1,
     ImpactFactor2017 = if_score,
     stringsAsFactors = F
     )) 
+  outputTbl = outputTbl %>% arrange(desc(ImpactFactor2017))
+  if(is.null(out)) out = paste0(keyword, '.searchNCBI.tsv')
   write_tsv(outputTbl, out)
 }

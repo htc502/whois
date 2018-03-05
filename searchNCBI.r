@@ -43,6 +43,8 @@ searchNCBI = function(keyword, db = 'pubmed',out = NULL) {
     stringsAsFactors = F
     )) 
   outputTbl = outputTbl %>% arrange(desc(ImpactFactor2017))
-  if(is.null(out)) out = paste0(keyword, '.searchNCBI.tsv')
+  if(is.null(out)) {
+    out = paste0(gsub('\\/',' or ',keyword), '.searchNCBI.tsv')
+  }
   write_tsv(outputTbl, out)
 }

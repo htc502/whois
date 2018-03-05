@@ -26,10 +26,10 @@ searchNCBI = function(keyword, db = 'pubmed',out = 'searchNCBI.tsv') {
 
   ifdat = read_excel('ImpactFactorJCR_2017release.xlsx',1)
   ifdat$`Full Journal Title` = toupper(ifdat$`Full Journal Title`)
-  match(toupper(outputTbl$journal), ifdat$`Full Journal Title`) -> pos
+  ifdat$`Journal Impact Factor` = as.numeric(as.character(
+                       ifdat$`Journal Impact Factor`))
+  match(toupper(journal1), ifdat$`Full Journal Title`) -> pos
   if_score = ifdat[pos,]$`Journal Impact Factor`
-  outputTbl$`Impact Factor2017` = if_score
-
 
   outputTbl = tbl_df(data.frame(
     title = titles1,
@@ -39,7 +39,8 @@ searchNCBI = function(keyword, db = 'pubmed',out = 'searchNCBI.tsv') {
     year = year1,
     journal = journal1,
     pmid = pmid1,
-    ImpactFactor2017 = if_score
+    ImpactFactor2017 = if_score,
+    stringsAsFactors = F
     )) 
   write_tsv(outputTbl, out)
 }
